@@ -1,4 +1,4 @@
-use std::ops::{Add, AddAssign, Sub, SubAssign, Mul, MulAssign, Div, DivAssign};
+use std::ops::{Neg, Add, AddAssign, Sub, SubAssign, Mul, MulAssign, Div, DivAssign};
 
 use crate::dms::DMS;
 use crate::traits::FloatAngle;
@@ -133,6 +133,14 @@ impl <T: FloatAngle> Angle<T> {
     }
 }
 
+impl<T: FloatAngle> Neg for Angle<T> {
+    type Output = Self;
+
+    fn neg(self) -> Self::Output {
+        Self::from_rad(-self.rad)
+    }
+}
+
 impl<T: FloatAngle> Add<Angle<T>> for Angle<T> {
     type Output = Self;
 
@@ -150,7 +158,7 @@ impl<T: FloatAngle> Sub<Angle<T>> for Angle<T> {
     type Output = Self;
 
     fn sub(self, rhs: Self) -> Self::Output {
-        Self::from_rad(self.rad - rhs.rad)
+        self + (-rhs)
     }
 }
 impl<T: FloatAngle> SubAssign<Angle<T>> for Angle<T> {
