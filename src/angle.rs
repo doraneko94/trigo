@@ -3,7 +3,7 @@ use std::ops::{Neg, Add, AddAssign, Sub, SubAssign, Mul, MulAssign, Div, DivAssi
 use crate::dms::DMS;
 use crate::traits::FloatAngle;
 
-#[derive(Clone, Copy)]
+#[derive(PartialEq, Clone, Copy, Debug)]
 pub struct Angle<T: FloatAngle> {
     rad: T,
 }
@@ -73,6 +73,7 @@ impl <T: FloatAngle> Angle<T> {
         else { self.rad = rad }
     }
 
+    function_ret_self!(zero);
     function_ret_self!(nan);
     function_ret_self!(infinity);
     function_ret_self!(neg_infinity);
